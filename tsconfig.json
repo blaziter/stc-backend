@@ -21,7 +21,7 @@
     "strictPropertyInitialization": false,
     "types": ["vitest/globals", "node"],
     "paths": {
-      "@*": ["./src/*"]
+      "@*": ["./src/*/index.ts", "./src/*"]
     }
   }
 }
