@@ -1,4 +1,4 @@
 allowBuilds:
-  '@apollo/protobufjs': set this to true or false
-  '@scarf/scarf': set this to true or false
-  msgpackr-extract: set this to true or false
+  '@apollo/protobufjs': true
+  '@scarf/scarf': false
+  msgpackr-extract: true
