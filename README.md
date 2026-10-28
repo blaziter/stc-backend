@@ -56,8 +56,6 @@ cp .env.example .env
 | `JWT_EXPIRES_IN` | No | `1d` | Lifetime of issued JWT tokens (e.g., `15m`, `1d`, `7d`) |
 | `OKIS_API_BASE_URL` | **Yes** | — | Target base URL for the upstream OKIS service |
 | `OKIS_API_KEY` | **Yes** | — | Integration credentials / token for OKIS API |
-| `THROTTLE_TTL` | No | `60000` | Rate limit window in milliseconds (default: 60s) |
-| `THROTTLE_LIMIT` | No | `100` | Maximum requests allowed per IP within the TTL window |
 | `AZURE_LOG_ANALYTICS_WORKSPACE_ID` | Conditional | — | Required in production for telemetry shipping |
 | `AZURE_LOG_ANALYTICS_SHARED_KEY` | Conditional | — | Secret key for Azure Log Analytics ingestion |
 
