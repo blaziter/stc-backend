@@ -14,14 +14,8 @@ const barrels = [
         lineTemplate,
     },
     {
-        path: ['src/services/*/dto.ts'],
-        files: '*.dto.ts',
-        fileTemplate,
-        lineTemplate,
-    },
-    {
-        path: ['src/services/*/service.ts'],
-        files: '*.service.ts',
+        path: ['src/services/*/index.ts'],
+        files: ['*.*.ts'],
         fileTemplate,
         lineTemplate,
     },
@@ -32,7 +26,7 @@ const barrels = [
         lineTemplate,
     },
     {
-        path: 'src/lib/index.ts',
+        path: ['src/lib/index.ts'],
         files: '*.ts',
         fileTemplate,
         lineTemplate,
