@@ -8,20 +8,20 @@ const fileTemplate = (files) =>
  * @type {import("barrelgun").BarrelgunConfig["barrels"]} */
 const barrels = [
     {
-        path: 'src/*/index.ts',
-        files: ['*.{controller,module,service,middleware}.ts'],
+        path: ['src/*/index.ts', 'src/*/**/index.ts'],
+        files: ['*.{controller,dto,module,repository,service,middleware}.ts'],
         fileTemplate,
         lineTemplate,
     },
     {
         path: ['src/services/*/index.ts'],
-        files: ['*.*.ts'],
+        files: ['*.{client,error,module,service}.ts'],
         fileTemplate,
         lineTemplate,
     },
     {
         path: ['src/lib/**/index.ts'],
-        files: '*.{decorator,enum,model}.ts',
+        files: ['*.ts', '*.{decorator,enum,model}.ts'],
         fileTemplate,
         lineTemplate,
     },
