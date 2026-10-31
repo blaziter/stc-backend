@@ -1,16 +1,30 @@
 import { Controller, Get } from '@nestjs/common';
-import { HealthCheck, HealthCheckService, HttpHealthIndicator } from '@nestjs/terminus';
+import { HealthCheck, HealthCheckResult, HealthCheckService, HealthIndicatorResult } from '@nestjs/terminus';
+
+import { PostgresService } from '@services/postgres';
 
 @Controller('health')
 export class HealthController {
-  constructor(
-    private health: HealthCheckService,
-    private http: HttpHealthIndicator
+  public constructor(
+    private readonly health: HealthCheckService,
+    private readonly postgresService: PostgresService
   ) {}
 
   @Get()
   @HealthCheck()
-  check() {
-    return this.health.check([() => this.http.pingCheck('nestjs-docs', 'https://docs.nestjs.com')]);
+  public async check(): Promise<HealthCheckResult> {
+    return this.health.check([
+      async (): Promise<HealthIndicatorResult> => {
+        const isDbHealthy = await this.postgresService.isHealthy();
+        if (!isDbHealthy) {
+          throw new Error('PostgreSQL ping failed');
+        }
+        return {
+          database: {
+            status: 'up',
+          },
+        };
+      },
+    ]);
   }
 }

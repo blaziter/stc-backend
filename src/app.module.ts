@@ -4,9 +4,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ThrottlerModule } from '@nestjs/throttler';
 
-import { AuthController, AuthModule, AuthService } from '@auth';
-import config from '@config/config.js';
+import { PostgresModule } from '@services/postgres';
+
+import { configs } from '@config';
 import { HealthModule } from '@health';
+import { AuthModule } from '@modules/app/auth';
+import { UserModule } from '@modules/app/user';
+import { RepositoriesModule } from '@modules/repositories';
 
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
@@ -16,7 +20,7 @@ import { AppService } from './app.service.js';
     ConfigModule.forRoot({
       envFilePath: ['.env', '.env.local', '.env.development.local'],
       isGlobal: true,
-      load: [config],
+      load: [configs.config, configs.postgresConfig],
     }),
     BullModule.forRoot({
       connection: {
@@ -73,8 +77,11 @@ import { AppService } from './app.service.js';
       ],
     }),
     AuthModule,
+    PostgresModule,
+    UserModule,
+    RepositoriesModule,
   ],
-  controllers: [AppController, AuthController],
-  providers: [AppService, AuthService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
