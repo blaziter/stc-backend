@@ -11,6 +11,7 @@ const SCOPES = [
     'health',
     'logger',
     'services/postgres',
+    'repositories'
 ]
 
 const PROJECT_SCOPES = [
