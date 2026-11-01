@@ -10,7 +10,9 @@ const SCOPES = [
     'config',
     'health',
     'logger',
+    'services',
     'services/postgres',
+    'services/redis',
     'repositories'
 ]
 
