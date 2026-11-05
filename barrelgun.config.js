@@ -9,7 +9,7 @@ const fileTemplate = (files) =>
 const barrels = [
     {
         path: ['src/*/index.ts', 'src/*/**/index.ts'],
-        files: ['*.{controller,dto,module,repository,service,middleware}.ts'],
+        files: ['*.{controller,decorator,dto,guard,module,repository,service,middleware}.ts'],
         fileTemplate,
         lineTemplate,
     },
