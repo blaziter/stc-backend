@@ -1,8 +1,8 @@
 import { Type } from 'class-transformer';
 import { IsBoolean, IsDate, IsString, IsUUID, MaxLength } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, PickType } from '@nestjs/swagger';
 
-import { IsArrayOf } from '@lib/decorators/property.decorator.js';
+import { IsArrayOf } from '@lib/decorators';
 
 import { Role } from '@modules/repositories/role';
 
@@ -100,6 +100,16 @@ export class User {
   roles: Role[];
 }
 
+export class CreateUserBodyDto extends PickType(User, [
+  'email',
+  'firstName',
+  'lastName',
+  'phoneNumber',
+  'roles',
+]) {}
+
+export class CreateUserBodyResultDto extends PickType(User, ['id', 'firstName', 'lastName']) {}
+
 export class FindUserByIdParamsDto extends PickType(User, ['id']) {}
 
 export class FindUserByIdResultDto extends PickType(User, [
@@ -113,3 +123,37 @@ export class FindUserByIdResultDto extends PickType(User, [
   'updatedAt',
   'roles',
 ]) {}
+
+export class LoginUserBodyDto extends PickType(User, ['email']) {
+  @IsString()
+  @MaxLength(100)
+  password: string;
+}
+
+export class LoginUserResultDto extends PickType(User, [
+  'id',
+  'email',
+  'firstName',
+  'lastName',
+  'phoneNumber',
+  'active',
+  'createdAt',
+  'updatedAt',
+  'passwordHash',
+  'passwordSalt',
+  'roles',
+]) {}
+
+export class LoginResponseDto {
+  @ApiProperty({
+    description: 'JWT access token',
+  })
+  @IsString()
+  accessToken: string;
+
+  @ApiProperty({
+    description: 'Authenticated user profile and roles',
+    type: () => FindUserByIdResultDto,
+  })
+  user: FindUserByIdResultDto;
+}

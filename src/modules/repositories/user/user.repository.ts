@@ -1,22 +1,15 @@
+import crypto from 'node:crypto';
 import sql from 'sequencework-sql-global';
-import { Injectable } from '@nestjs/common';
-import { PickType } from '@nestjs/swagger';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { PostgresService } from '@services/postgres';
 
-import { LoginUserResultDto, User } from './user.dto.js';
-
-class FindUserByIdResultDto extends PickType(User, [
-  'id',
-  'email',
-  'firstName',
-  'lastName',
-  'phoneNumber',
-  'active',
-  'createdAt',
-  'updatedAt',
-  'roles',
-]) {}
+import {
+  CreateUserBodyDto,
+  CreateUserBodyResultDto,
+  FindUserByIdResultDto,
+  LoginUserResultDto,
+} from './user.dto.js';
 
 @Injectable()
 export class UsersRepository {
