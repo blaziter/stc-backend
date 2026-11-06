@@ -47,7 +47,7 @@ export class UsersRepository {
 
   async findByEmail(email: string): Promise<LoginUserResultDto> {
     const user = await this.postgresService.callSingle(sql`
-      SELECT id, email, first_name, last_name, phone_number, active, created_at, updated_at
+      SELECT id, email, first_name, last_name, password_hash, password_salt, phone_number, active, created_at, updated_at
       FROM users 
       WHERE email = ${email}
     `);
@@ -63,6 +63,12 @@ export class UsersRepository {
       email: user.email,
       firstName: user.first_name,
       lastName: user.last_name,
+      phoneNumber: user.phone_number,
+      active: user.active,
+      createdAt: user.created_at,
+      updatedAt: user.updated_at,
+      passwordHash: user.password_hash,
+      passwordSalt: user.password_salt,
       roles: userRoles.map((role) => ({
         id: role.id,
         name: role.name,
